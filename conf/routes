@@ -3,21 +3,35 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+
++nocsrf
+GET         /blog                  controllers.BlogController.blog(page: Int ?= 1)
+# Blog page of user :username, showing blog posts from this users in reversed order of the date of publication
++nocsrf
+GET         /blog/:username        controllers.BlogController.usersBlog(username, page: Int ?= 1)
 
 
-GET     /books                      controllers.BooksController.index()
-GET     /books/create               controllers.BooksController.create()
-GET     /books/:id                  controllers.BooksController.show(id : Integer)
-GET     /books/edit/:id             controllers.BooksController.edit(id: Integer)
-PUT     /books/edit                 controllers.BooksController.update()
-POST    /books/create               controllers.BooksController.save()
-DELETE  /books/delete/:id           controllers.BooksController.destroy(id: Integer)
++nocsrf
+POST        /login                 controllers.UserController.login
+# Logout user
+GET         /logout                controllers.UserController.logout
+
+# Create new user
++nocsrf
+POST        /register              controllers.UserController.register
 
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# Blog post page for id of :id
++nocsrf
+GET         /post                  controllers.PostController.getPost(id: Long)
+
+# Create new post
++nocsrf
+POST        /post                  controllers.PostController.createPost
+
+# Deletes post with id of :id
++nocsrf
+GET         /post/delete           controllers.PostController.deletePost(id: Long)
+
++nocsrf
+POST        /comment               controllers.CommentController.createComment(postId: Long)

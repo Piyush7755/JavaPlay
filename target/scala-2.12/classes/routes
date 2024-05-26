@@ -1,0 +1,37 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+
++nocsrf
+GET         /blog                  controllers.BlogController.blog(page: Int ?= 1)
+# Blog page of user :username, showing blog posts from this users in reversed order of the date of publication
++nocsrf
+GET         /blog/:username        controllers.BlogController.usersBlog(username, page: Int ?= 1)
+
+
++nocsrf
+POST        /login                 controllers.UserController.login
+# Logout user
+GET         /logout                controllers.UserController.logout
+
+# Create new user
++nocsrf
+POST        /register              controllers.UserController.register
+
+
+# Blog post page for id of :id
++nocsrf
+GET         /post                  controllers.PostController.getPost(id: Long)
+
+# Create new post
++nocsrf
+POST        /post                  controllers.PostController.createPost
+
+# Deletes post with id of :id
++nocsrf
+GET         /post/delete           controllers.PostController.deletePost(id: Long)
+
++nocsrf
+POST        /comment               controllers.CommentController.createComment(postId: Long)
